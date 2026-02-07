@@ -378,4 +378,57 @@ body.candle .cancel {
   background: #b08a57;
   color: white;
 }
+/* 📱 MOBILE FIX — FINAL, NO MORE WEIRD SPACING */
+@media (max-width: 600px) {
+
+  /* Fix the huge top gap */
+  header {
+    min-height: auto !important;
+    padding-top: 24px;
+    padding-bottom: 8px;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+
+  header p {
+    font-size: 1rem;
+    padding: 0 12px;
+  }
+
+  main {
+    padding-top: 0;
+  }
+
+  /* Bring writing box closer */
+  .letter-box {
+    margin-top: 12px;
+    padding: 24px 18px;
+  }
+
+  textarea {
+    font-size: 1.05rem;
+    height: 130px;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+
+  /* Archive readability */
+  .letter {
+    font-size: 1.05rem;
+    padding: 20px;
+  }
+
+  /* Modal feels natural on phone */
+  .modal-content {
+    width: 90%;
+    padding: 24px;
+  }
+}
+
 
