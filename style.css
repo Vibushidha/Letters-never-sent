@@ -292,3 +292,90 @@ body.candle .modal-actions .cancel {
     margin-top: 8px;
   }
 }
+/* 📱 MOBILE: FIX HEADER SPACING FOR REAL */
+@media (max-width: 768px) {
+  header {
+    min-height: unset !important;
+    height: auto !important;
+    padding-top: 32px;
+    padding-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 2.4rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .letter-box {
+    margin-top: 0;
+  }
+}
+
+/* 🌙 DARK MODE – MODAL FIX */
+body.candle .modal-content {
+  background: #1f1411;
+  color: #f5e6c8;
+}
+
+body.candle .modal-content button {
+  background: #b08a57;
+  color: #fff;
+}
+/* 🔥 BURN ANIMATION */
+.burning {
+  animation: burnAway 1.2s forwards ease-in;
+}
+
+@keyframes burnAway {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+  60% {
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: scale(0.85);
+  }
+}
+
+/* MODAL CONTENT */
+.modal-content {
+  background: #f7f1e6;
+  padding: 28px;
+  border-radius: 16px;
+  max-width: 320px;
+  text-align: center;
+}
+
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+.burn-confirm {
+  padding: 12px 26px;
+  font-size: 1rem;
+}
+
+/* DARK MODE MODAL FIX */
+body.candle .modal-content {
+  background: #1f1411;
+  color: #f5e6c8;
+}
+
+body.candle .burn-confirm,
+body.candle .cancel {
+  background: #b08a57;
+  color: white;
+}
+
