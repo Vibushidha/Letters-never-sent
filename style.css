@@ -271,3 +271,24 @@ body.candle .modal-actions .cancel {
     margin-top: 0;
   }
 }
+/* 📱 MOBILE – REMOVE HEADER GAP COMPLETELY */
+@media (max-width: 768px) {
+  header {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 40px;
+    padding-bottom: 16px;
+  }
+
+  header h1 {
+    margin-bottom: 12px;
+  }
+
+  main {
+    padding-top: 0;
+  }
+
+  .letter-box {
+    margin-top: 8px;
+  }
+}
