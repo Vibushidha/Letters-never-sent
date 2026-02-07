@@ -4,10 +4,10 @@ const waxSeal = document.getElementById("waxSeal");
 const modal = document.getElementById("confirmModal");
 const lettersContainer = document.getElementById("lettersContainer");
 
-let pendingArchiveBurn = null;
-let burningDraft = false;
+let burnTarget = null;
+let burnType = null;
 
-/* SCROLL REVEAL */
+/* 🌊 SCROLL REVEAL */
 function revealOnScroll() {
   const trigger = window.innerHeight * 0.75;
   reveals.forEach(el => {
@@ -16,70 +16,94 @@ function revealOnScroll() {
     }
   });
 }
-
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
 
-/* CANDLE MODE */
+/* 🕯️ DARK MODE */
 function toggleCandle() {
   document.body.classList.toggle("candle");
 }
 
-/* SEAL LETTER */
+/* 💾 STORAGE */
+function saveLetters() {
+  const texts = [...document.querySelectorAll(".letter p")]
+    .map(p => p.textContent);
+  localStorage.setItem("letters", JSON.stringify(texts));
+}
+
+function loadLetters() {
+  const saved = JSON.parse(localStorage.getItem("letters")) || [];
+  saved.forEach(text => createLetter(text, false));
+}
+
+/* ✉️ CREATE LETTER */
+function createLetter(text, save = true) {
+  const letter = document.createElement("div");
+  letter.className = "letter";
+
+  letter.innerHTML = `
+    <p>${text}</p>
+    <small>— Sealed, never sent</small>
+    <br><br>
+    <button class="burn-btn">Burn</button>
+  `;
+
+  letter.querySelector(".burn-btn").onclick = () => {
+    burnTarget = letter;
+    burnType = "archive";
+    modal.style.display = "flex";
+  };
+
+  lettersContainer.prepend(letter);
+  if (save) saveLetters();
+}
+
+/* 🔴 SEAL LETTER */
 function sealLetter() {
   if (!textarea.value.trim()) return;
 
   waxSeal.style.opacity = 1;
-  setTimeout(() => waxSeal.style.opacity = 0, 3000);
+  setTimeout(() => waxSeal.style.opacity = 0, 2500);
 
-  const letter = document.createElement("div");
-  letter.className = "letter";
-  letter.innerHTML = `
-    <p>${textarea.value}</p>
-    <small>— Sealed, never sent</small>
-    <div class="archive-actions">
-      <button onclick="openArchiveBurn(this)">Burn Letter</button>
-    </div>
-  `;
-
-  lettersContainer.prepend(letter);
+  createLetter(textarea.value.trim());
   textarea.value = "";
 }
 
-/* OPEN BURN CONFIRMATION (ARCHIVE) */
-function openArchiveBurn(button) {
-  pendingArchiveBurn = button.closest(".letter");
-  burningDraft = false;
-  modal.style.display = "flex";
-}
-
-/* BURN DRAFT */
+/* 🔥 BURN DRAFT */
 function burnDraft() {
   if (!textarea.value.trim()) return;
-  burningDraft = true;
+  burnType = "draft";
   modal.style.display = "flex";
 }
 
-/* CONFIRM BURN */
+/* 🔥 CONFIRM BURN */
 function confirmBurn() {
-  if (burningDraft) {
-    textarea.value = "";
-    burningDraft = false;
+  if (burnType === "draft") {
+    textarea.classList.add("burning");
+    setTimeout(() => {
+      textarea.value = "";
+      textarea.classList.remove("burning");
+    }, 1200);
   }
 
-  if (pendingArchiveBurn) {
-    pendingArchiveBurn.style.opacity = 0;
-    pendingArchiveBurn.style.transform = "translateY(20px)";
-    setTimeout(() => pendingArchiveBurn.remove(), 800);
-    pendingArchiveBurn = null;
+  if (burnType === "archive" && burnTarget) {
+    burnTarget.classList.add("burning");
+    setTimeout(() => {
+      burnTarget.remove();
+      saveLetters();
+      burnTarget = null;
+    }, 1200);
   }
 
   modal.style.display = "none";
 }
 
-/* CLOSE MODAL */
+/* ❌ CANCEL */
 function closeModal() {
-  pendingArchiveBurn = null;
-  burningDraft = false;
+  burnTarget = null;
+  burnType = null;
   modal.style.display = "none";
 }
+
+/* 🚀 INIT */
+loadLetters();
