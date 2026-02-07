@@ -256,3 +256,18 @@ body.candle .modal-actions .cancel {
     font-size: 0.95rem;
   }
 }
+/* 📱 MOBILE SPACING FIX */
+@media (max-width: 768px) {
+  header {
+    min-height: 75vh;   /* was 100vh */
+    padding-bottom: 20px;
+  }
+
+  main {
+    padding-top: 10px;
+  }
+
+  .letter-box {
+    margin-top: 0;
+  }
+}
