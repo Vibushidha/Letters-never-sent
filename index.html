@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Letters Never Sent</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Letters Never Sent</h1>
+  <p>Words meant for no one… yet kept forever.</p>
+  <button class="candle-btn" onclick="toggleCandle()">🕯️ Candlelight</button>
+</header>
+
+<main>
+  <section class="letter-box reveal">
+    <textarea id="letterInput" placeholder="My dearest..."></textarea>
+
+    <div class="actions">
+      <button onclick="burnDraft()">Burn Draft</button>
+      <button onclick="sealLetter()">Seal with Wax</button>
+    </div>
+
+    <div id="waxSeal">🕯️ Sealed</div>
+  </section>
+
+  <section class="archive reveal">
+    <h2>The Archive</h2>
+    <div id="lettersContainer"></div>
+  </section>
+</main>
+
+<footer>
+  <p>© The Ton · Some letters are never meant to be read</p>
+</footer>
+
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <h3>Burn this letter?</h3>
+    <p>Once burned, only ash remains.</p>
+    <div class="modal-actions">
+      <button onclick="confirmBurn()">Yes, burn it</button>
+      <button class="cancel" onclick="closeModal()">No, keep it</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
